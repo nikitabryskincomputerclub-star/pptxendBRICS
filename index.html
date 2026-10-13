@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRICS — Evolution, Structure and Global Role</title>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+  :root {
+    --navy:   #003A70;
+    --gold:   #C9A227;
+    --green:  #2E7D32;
+    --white:  #FFFFFF;
+    --light:  #F4F6F9;
+    --line:   #DDDFE3;
+    --gray:   #666B73;
+    --dark:   #1A1A1A;
+    --subtle: #C9D4E0;
+    --font: "Segoe UI", "Aptos", Calibri, system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    font-family: var(--font);
+    background: #0b1622;
+    color: var(--dark);
+    overflow: hidden;
+  }
+  .deck { position: relative; width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center; }
+  .slide {
+    position: absolute;
+    width: 1280px; height: 720px;
+    background: var(--white);
+    padding: 40px 52px 56px;
+    opacity: 0;
+    transform: translateY(14px) scale(.985);
+    transition: opacity .45s ease, transform .45s ease;
+    pointer-events: none;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    display: flex; flex-direction: column;
+  }
+  .slide.active { opacity: 1; transform: translateY(0) scale(1);
+    pointer-events: auto; z-index: 2; }
+  @media (max-width: 1320px) { .slide { transform-origin: center center; } }
+
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .title { font-size: 30px; font-weight: 700; color: var(--navy);
+    line-height: 1.15; letter-spacing: -.01em; }
+  .title-bar { width: 72px; height: 3px; background: var(--gold);
+    margin-top: 12px; border-radius: 2px; }
+  .header { margin-bottom: 26px; }
+  .footer { position: absolute; left: 52px; right: 52px; bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; color: var(--gray); border-top: 1px solid var(--line);
+    padding-top: 8px; }
+  .footer .num { color: var(--gold); font-weight: 700; letter-spacing: .05em; }
+
+  /* Cover */
+  .cover { background: var(--navy); padding: 0; justify-content: center; }
+  .cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 10px; background: var(--gold); }
+  .cover-inner { padding: 0 80px; max-width: 1000px; }
+  .cover .kicker { color: var(--gold); font-size: 12px; margin-bottom: 22px; }
+  .cover h1 { font-size: 110px; font-weight: 800; color: var(--white);
+    letter-spacing: -.02em; line-height: 1; }
+  .cover .rule { width: 140px; height: 4px; background: var(--gold);
+    margin: 26px 0 24px; }
+  .cover .sub { font-size: 26px; color: var(--white); font-weight: 300;
+    line-height: 1.35; max-width: 780px; }
+  .cover .tagline { font-size: 15px; color: var(--subtle); margin-top: 18px; }
+  .cover .bars { display: flex; gap: 10px; margin-top: 46px; }
+  .cover .bars span { width: 40px; height: 5px; border-radius: 2px; }
+  .cover .year { position: absolute; right: 80px; bottom: 60px;
+    font-size: 14px; font-weight: 700; color: var(--gold); letter-spacing: .3em; }
+
+  .two-col { display: grid; grid-template-columns: 1.05fr 1fr; gap: 34px; flex: 1; }
+  ul.bullets { list-style: none; }
+  ul.bullets li { position: relative; padding: 6px 0 6px 22px;
+    font-size: 15px; color: var(--dark); line-height: 1.45; }
+  ul.bullets li::before { content: ""; position: absolute; left: 0; top: 14px;
+    width: 9px; height: 9px; background: var(--gold); border-radius: 2px; }
+  ul.bullets li.sub { font-size: 13.5px; color: var(--gray); padding-left: 40px; }
+  ul.bullets li.sub::before { content: "–"; background: none; left: 22px; top: 5px;
+    color: var(--gray); width: auto; height: auto; font-weight: 700; }
+
+  .panel { background: var(--light); border-radius: 4px; padding: 22px 24px; }
+  .panel h3 { font-size: 11px; letter-spacing: .16em; color: var(--navy);
+    text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+  .panel .panel-rule { width: 46px; height: 2px; background: var(--gold);
+    margin: 8px 0 16px; }
+  .members { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .member { display: flex; align-items: center; background: var(--white);
+    border: 1px solid var(--line); padding: 10px 12px 10px 14px;
+    font-size: 13px; font-weight: 600; color: var(--navy); position: relative; }
+  .member::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--gold); }
+
+  .facts { display: flex; flex-direction: column; flex: 1; justify-content: center; }
+  .fact-row { display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    padding: 16px 0 16px 20px; border-bottom: 1px solid var(--line);
+    position: relative; font-size: 15px; }
+  .fact-row:last-child { border-bottom: none; }
+  .fact-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--gold); }
+  .fact-row:nth-child(even) { background: var(--light); }
+  .fact-key { color: var(--navy); font-weight: 700; }
+  .fact-val { color: var(--dark); }
+
+  .legal { display: grid; grid-template-columns: .82fr 1.18fr; gap: 34px; flex: 1; }
+  .no-panel { background: var(--navy); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 30px;
+    text-align: center; border-radius: 4px; }
+  .no-panel .big-no { font-size: 130px; font-weight: 800; color: var(--gold);
+    line-height: 1; letter-spacing: -.04em; }
+  .no-panel p { color: var(--white); font-size: 14px; margin-top: 26px;
+    line-height: 1.5; max-width: 300px; }
+  .reasons { display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+  .reason { display: flex; align-items: center; gap: 16px; font-size: 14.5px;
+    color: var(--dark); }
+  .reason .badge { flex: none; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--gold); color: var(--white); font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; }
+  .conclusion-pill { margin-top: 20px; background: var(--light);
+    border-left: 4px solid var(--green); padding: 16px 18px;
+    font-size: 14.5px; font-weight: 700; color: var(--navy); }
+
+  .timeline { flex: 1; display: flex; flex-direction: column;
+    justify-content: center; padding-top: 10px; }
+  .timeline-track { position: relative; height: 2px; background: var(--navy);
+    margin: 120px 0 0; }
+  .tl-item { position: absolute; top: -160px; width: 150px;
+    margin-left: -75px; text-align: center; }
+  .tl-item .dot { position: absolute; left: 50%; top: 148px; width: 16px;
+    height: 16px; margin-left: -8px; border-radius: 50%;
+    background: var(--gold); border: 3px solid var(--white);
+    box-shadow: 0 0 0 1px var(--gold); }
+  .tl-item .year { font-size: 15px; font-weight: 700; color: var(--navy);
+    letter-spacing: .02em; }
+  .tl-item .desc { font-size: 11.5px; color: var(--dark); margin-top: 8px;
+    line-height: 1.35; }
+
+  .stages { display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px; flex: 1; }
+  .stage { background: var(--light); border-radius: 4px; padding: 22px 18px;
+    display: flex; flex-direction: column; position: relative; }
+  .stage::before { content: ""; position: absolute; left: 0; right: 0; top: 0;
+    height: 4px; background: var(--gold); }
+  .stage:nth-child(even)::before { background: var(--green); }
+  .stage .num { width: 42px; height: 42px; border-radius: 50%;
+    background: var(--navy); color: var(--white); font-weight: 800; font-size: 18px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .stage .period { font-size: 13px; font-weight: 700; color: var(--navy);
+    margin-bottom: 10px; }
+  .stage .stage-rule { width: 46px; height: 2px; background: var(--gold);
+    margin-bottom: 14px; }
+  .stage ul { list-style: none; }
+  .stage ul li { font-size: 12px; color: var(--dark); padding: 5px 0 5px 14px;
+    position: relative; line-height: 1.4; }
+  .stage ul li::before { content: ""; position: absolute; left: 0; top: 11px;
+    width: 6px; height: 6px; background: var(--gold); border-radius: 1px; }
+
+  .achievements { display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 22px; flex: 1; }
+  .achievement { border: 1px solid var(--line); border-radius: 4px;
+    overflow: hidden; display: flex; flex-direction: column; }
+  .achievement .head { background: var(--navy); color: var(--white);
+    text-align: center; font-size: 13px; font-weight: 700;
+    letter-spacing: .16em; padding: 18px 12px; }
+  .achievement .body { padding: 20px 22px; flex: 1; }
+  .achievement .body-rule { width: 40px; height: 2px; background: var(--gold);
+    margin-bottom: 16px; }
+  .achievement ul { list-style: none; }
+  .achievement ul li { font-size: 14px; padding: 8px 0 8px 18px;
+    position: relative; line-height: 1.4; color: var(--dark); }
+  .achievement ul li::before { content: ""; position: absolute; left: 0;
+    top: 14px; width: 7px; height: 7px; background: var(--green); border-radius: 50%; }
+
+  .chair { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; flex: 1; }
+  .chair-table { display: flex; flex-direction: column; }
+  .chair-table .label { font-size: 11px; font-weight: 700;
+    letter-spacing: .16em; color: var(--gold); margin-bottom: 6px; }
+  .chair-table .label-rule { width: 46px; height: 2px; background: var(--gold);
+    margin-bottom: 16px; }
+  .chair-row { display: grid; grid-template-columns: 110px 1fr;
+    align-items: center; padding: 14px 16px; font-size: 15px;
+    border-bottom: 1px solid var(--line); position: relative; }
+  .chair-row:last-child { border-bottom: none; }
+  .chair-row::before { content: ""; position: absolute; left: 0; top: 0;
+    bottom: 0; width: 3px; background: var(--gold); }
+  .chair-row:nth-child(even) { background: var(--light); }
+  .chair-row .yr { font-weight: 700; color: var(--navy); }
+  .chair-panel { background: var(--light); border-radius: 4px;
+    padding: 28px 30px; }
+  .chair-panel h3 { font-size: 12px; letter-spacing: .14em; color: var(--navy);
+    font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+  .chair-panel .panel-rule { width: 46px; height: 2px; background: var(--gold);
+    margin-bottom: 22px; }
+  .chair-panel ul { list-style: none; }
+  .chair-panel ul li { font-size: 14.5px; padding: 9px 0 9px 22px;
+    position: relative; color: var(--dark); line-height: 1.4; }
+  .chair-panel ul li::before { content: ""; position: absolute; left: 0;
+    top: 15px; width: 8px; height: 8px; background: var(--gold);
+    border-radius: 2px; }
+
+  .gov { display: flex; flex-direction: column; align-items: center;
+    flex: 1; justify-content: center; gap: 0; }
+  .gov-node { width: 440px; background: var(--navy); color: var(--white);
+    text-align: center; padding: 14px 20px; font-size: 14px; font-weight: 700;
+    letter-spacing: .02em; border-radius: 3px; }
+  .gov-arrow { width: 0; height: 0; border-left: 7px solid transparent;
+    border-right: 7px solid transparent; border-top: 12px solid var(--gold);
+    margin: 7px 0; }
+  .gov-bodies { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap;
+    justify-content: center; }
+  .gov-body { width: 158px; padding: 16px 10px; background: var(--light);
+    border: 1px solid var(--navy); border-radius: 3px; text-align: center;
+    font-size: 11px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 22px; margin-bottom: 34px; }
+  .kpi { background: var(--navy); color: var(--white);
+    padding: 26px 20px 22px; text-align: center; border-radius: 4px;
+    position: relative; }
+  .kpi::before { content: ""; position: absolute; left: 0; right: 0; top: 0;
+    height: 4px; background: var(--gold); }
+  .kpi:nth-child(even)::before { background: var(--green); }
+  .kpi .val { font-size: 54px; font-weight: 800; color: var(--gold);
+    line-height: 1; letter-spacing: -.02em; }
+  .kpi .lbl { font-size: 12.5px; color: var(--subtle); margin-top: 12px; }
+  .priorities-label { font-size: 11px; font-weight: 700;
+    letter-spacing: .16em; color: var(--gold); margin-bottom: 6px; }
+  .priorities-rule { width: 46px; height: 2px; background: var(--gold);
+    margin-bottom: 18px; }
+  .priorities { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .priority { background: var(--light); border: 1px solid var(--line);
+    padding: 14px 14px 14px 18px; font-size: 12.5px; font-weight: 700;
+    color: var(--navy); position: relative; border-radius: 2px; }
+  .priority::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--green); }
+
+  .challenges { display: flex; flex-direction: column; gap: 12px; flex: 1;
+    justify-content: center; }
+  .challenge { background: var(--light); padding: 18px 24px;
+    display: grid; grid-template-columns: 60px 1fr; align-items: center;
+    position: relative; border-radius: 2px; }
+  .challenge::before { content: ""; position: absolute; left: 0; top: 0;
+    bottom: 0; width: 4px; background: var(--gold); }
+  .challenge .idx { font-size: 22px; font-weight: 800; color: var(--gold);
+    letter-spacing: -.02em; }
+  .challenge .txt { font-size: 15px; font-weight: 700; color: var(--navy); }
+
+  .conclusion { display: grid; grid-template-columns: 1fr 1fr;
+    gap: 34px; flex: 1; }
+  .concl-left { background: var(--navy); color: var(--white);
+    padding: 34px 32px; border-radius: 4px; display: flex;
+    flex-direction: column; justify-content: center; position: relative; }
+  .concl-left::before { content: ""; position: absolute; left: 0; right: 0;
+    top: 0; height: 5px; background: var(--gold); }
+  .concl-left .quote { font-size: 22px; font-weight: 700;
+    line-height: 1.4; margin-bottom: 26px; }
+  .concl-left .sub { font-size: 13px; color: var(--subtle); line-height: 1.55; }
+  .concl-right { display: flex; flex-direction: column; }
+  .concl-right .label { font-size: 11px; font-weight: 700;
+    letter-spacing: .16em; color: var(--gold); margin-bottom: 6px; }
+  .concl-right .label-rule { width: 46px; height: 2px; background: var(--gold);
+    margin-bottom: 20px; }
+  .role-item { background: var(--light); padding: 18px 22px; margin-bottom: 12px;
+    font-size: 14.5px; font-weight: 700; color: var(--navy); position: relative;
+    border-radius: 2px; }
+  .role-item::before { content: ""; position: absolute; left: 0; top: 0;
+    bottom: 0; width: 3px; background: var(--green); }
+
+  /* Controls */
+  .controls { position: fixed; bottom: 20px; left: 50%;
+    transform: translateX(-50%); display: flex; align-items: center;
+    gap: 14px; z-index: 100; background: rgba(255,255,255,.08);
+    backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 40px;
+    border: 1px solid rgba(255,255,255,.12); }
+  .btn { width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.06);
+    color: #fff; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 16px; transition: all .2s;
+    font-family: var(--font); }
+  .btn:hover { background: var(--gold); border-color: var(--gold);
+    color: var(--navy); }
+  .btn:disabled { opacity: .3; cursor: default; }
+  .btn-wide { width: auto; padding: 0 18px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; letter-spacing: .06em; gap: 8px; }
+  .btn-wide svg { width: 15px; height: 15px; }
+  .progress-info { color: #fff; font-size: 12px; font-family: var(--font);
+    letter-spacing: .12em; font-weight: 600; min-width: 58px;
+    text-align: center; }
+  .progress-info span { color: var(--gold); }
+  .divider { width: 1px; height: 24px; background: rgba(255,255,255,.15); }
+
+  .hint { position: fixed; top: 20px; right: 24px;
+    color: rgba(255,255,255,.4); font-size: 11px;
+    font-family: var(--font); z-index: 100; letter-spacing: .08em; }
+  .hint kbd { background: rgba(255,255,255,.12); padding: 2px 6px;
+    border-radius: 3px; font-family: var(--font); color: rgba(255,255,255,.75); }
+
+  @media print {
+    html, body { background: #fff; overflow: visible; height: auto; }
+    .deck { display: block; height: auto; width: auto; }
+    .slide { position: relative; opacity: 1 !important;
+      transform: none !important; pointer-events: auto;
+      page-break-after: always; box-shadow: none; margin: 0 auto;
+      width: 1280px; height: 720px; }
+    .controls, .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide cover active" data-index="0">
+    <div class="cover-inner">
+      <div class="kicker">Official Presentation</div>
+      <h1>BRICS</h1>
+      <div class="rule"></div>
+      <div class="sub">Evolution, Cooperation and Global Governance</div>
+      <div class="tagline">A major platform for cooperation among emerging economies</div>
+      <div class="bars">
+        <span style="background:#2E7D32"></span>
+        <span style="background:#C9A227"></span>
+        <span style="background:#FFFFFF"></span>
+        <span style="background:#2E7D32"></span>
+        <span style="background:#C9A227"></span>
+      </div>
+    </div>
+    <div class="year">2025</div>
+  </section>
+
+  <!-- 2 WHAT IS BRICS -->
+  <section class="slide" data-index="1">
+    <div class="header">
+      <div class="kicker">Introduction</div>
+      <div class="title">What is BRICS?</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="two-col">
+      <ul class="bullets">
+        <li>Informal interstate cooperation mechanism</li>
+        <li>Platform for political, economic and humanitarian dialogue</li>
+        <li>Promotes:</li>
+        <li class="sub">multipolar world order</li>
+        <li class="sub">sustainable development</li>
+        <li class="sub">reform of global governance</li>
+        <li class="sub">economic cooperation</li>
+      </ul>
+      <div class="panel">
+        <h3>Current Members · 2025</h3>
+        <div class="panel-rule"></div>
+        <div class="members">
+          <div class="member">Brazil</div>
+          <div class="member">Russia</div>
+          <div class="member">India</div>
+          <div class="member">China</div>
+          <div class="member">South Africa</div>
+          <div class="member">Egypt</div>
+          <div class="member">Ethiopia</div>
+          <div class="member">Iran</div>
+          <div class="member">United Arab Emirates</div>
+          <div class="member">Indonesia</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">02</div></div>
+  </section>
+
+  <!-- 3 KEY FACTS -->
+  <section class="slide" data-index="2">
+    <div class="header">
+      <div class="kicker">Overview</div>
+      <div class="title">Key Facts</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="facts">
+      <div class="fact-row"><div class="fact-key">Established</div><div class="fact-val">2006 &nbsp;·&nbsp; Ministerial format</div></div>
+      <div class="fact-row"><div class="fact-key">First Summit</div><div class="fact-val">2009 &nbsp;·&nbsp; Yekaterinburg</div></div>
+      <div class="fact-row"><div class="fact-key">South Africa joined</div><div class="fact-val">2011</div></div>
+      <div class="fact-row"><div class="fact-key">Major expansion</div><div class="fact-val">2024 – 2025</div></div>
+      <div class="fact-row"><div class="fact-key">Current members</div><div class="fact-val">10</div></div>
+      <div class="fact-row"><div class="fact-key">Decision-making</div><div class="fact-val">Consensus</div></div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">03</div></div>
+  </section>
+
+  <!-- 4 LEGAL -->
+  <section class="slide" data-index="3">
+    <div class="header">
+      <div class="kicker">Legal Status</div>
+      <div class="title">Is BRICS an International Organization?</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="legal">
+      <div class="no-panel">
+        <div class="big-no">NO</div>
+        <p>BRICS is not an international organization under international law.</p>
+      </div>
+      <div class="reasons">
+        <div class="reason"><div class="badge">1</div><div>No founding treaty (Charter / Treaty)</div></div>
+        <div class="reason"><div class="badge">2</div><div>No Charter or Constitution</div></div>
+        <div class="reason"><div class="badge">3</div><div>No international legal personality</div></div>
+        <div class="reason"><div class="badge">4</div><div>Decisions are political, not legally binding</div></div>
+        <div class="reason"><div class="badge">5</div><div>Cooperation based on consensus and summit declarations</div></div>
+        <div class="conclusion-pill">BRICS is an informal intergovernmental cooperation mechanism.</div>
+      </div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">04</div></div>
+  </section>
+
+  <!-- 5 TIMELINE -->
+  <section class="slide" data-index="4">
+    <div class="header">
+      <div class="kicker">Timeline</div>
+      <div class="title">Evolution of BRICS</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-track">
+        <div class="tl-item" style="left: 8%;">
+          <div class="year">1998</div><div class="desc">RIC concept<br>(Russia–India–China)</div><div class="dot"></div>
+        </div>
+        <div class="tl-item" style="left: 25%;">
+          <div class="year">2001</div><div class="desc">“BRIC” term coined<br>by Goldman Sachs</div><div class="dot"></div>
+        </div>
+        <div class="tl-item" style="left: 42%;">
+          <div class="year">2006</div><div class="desc">First BRIC Foreign<br>Ministers Meeting</div><div class="dot"></div>
+        </div>
+        <div class="tl-item" style="left: 59%;">
+          <div class="year">2009</div><div class="desc">First Leaders’<br>Summit</div><div class="dot"></div>
+        </div>
+        <div class="tl-item" style="left: 76%;">
+          <div class="year">2011</div><div class="desc">South Africa joins<br>→ BRICS</div><div class="dot"></div>
+        </div>
+        <div class="tl-item" style="left: 93%;">
+          <div class="year">2024–25</div><div class="desc">Expansion of<br>membership</div><div class="dot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">05</div></div>
+  </section>
+
+  <!-- 6 STAGES -->
+  <section class="slide" data-index="5">
+    <div class="header">
+      <div class="kicker">Phases</div>
+      <div class="title">Development Stages</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="stages">
+      <div class="stage"><div class="num">I</div><div class="period">2009 – 2013</div><div class="stage-rule"></div>
+        <ul><li>Institutional foundation</li><li>First summits</li><li>Governance reform agenda</li><li>South Africa joins</li></ul></div>
+      <div class="stage"><div class="num">II</div><div class="period">2014 – 2018</div><div class="stage-rule"></div>
+        <ul><li>New Development Bank</li><li>Contingent Reserve Arrangement</li><li>Expansion of cooperation</li></ul></div>
+      <div class="stage"><div class="num">III</div><div class="period">2019 – 2023</div><div class="stage-rule"></div>
+        <ul><li>COVID-19 coordination</li><li>Digital cooperation</li><li>BRICS expansion decision</li></ul></div>
+      <div class="stage"><div class="num">IV</div><div class="period">2024 – present</div><div class="stage-rule"></div>
+        <ul><li>Enlarged membership</li><li>BRICS Partner Countries</li><li>Deeper financial cooperation</li></ul></div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">06</div></div>
+  </section>
+
+  <!-- 7 ACHIEVEMENTS -->
+  <section class="slide" data-index="6">
+    <div class="header">
+      <div class="kicker">Results</div>
+      <div class="title">Major Achievements</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="achievements">
+      <div class="achievement"><div class="head">FINANCIAL</div><div class="body"><div class="body-rule"></div>
+        <ul><li>New Development Bank (2014)</li><li>Contingent Reserve Arrangement</li></ul></div></div>
+      <div class="achievement"><div class="head">ECONOMIC</div><div class="body"><div class="body-rule"></div>
+        <ul><li>Trade in national currencies</li><li>Infrastructure financing</li><li>Investment cooperation</li></ul></div></div>
+      <div class="achievement"><div class="head">POLITICAL</div><div class="body"><div class="body-rule"></div>
+        <ul><li>Coordination in G20</li><li>Reform of IMF and World Bank</li><li>Stronger Global South representation</li></ul></div></div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">07</div></div>
+  </section>
+
+  <!-- 8 CHAIRMANSHIP -->
+  <section class="slide" data-index="7">
+    <div class="header">
+      <div class="kicker">Rotating Annually</div>
+      <div class="title">BRICS Chairmanship</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="chair">
+      <div class="chair-table">
+        <div class="label">RECENT CHAIRS</div><div class="label-rule"></div>
+        <div class="chair-row"><div class="yr">2021</div><div>India</div></div>
+        <div class="chair-row"><div class="yr">2022</div><div>China</div></div>
+        <div class="chair-row"><div class="yr">2023</div><div>South Africa</div></div>
+        <div class="chair-row"><div class="yr">2024</div><div>Russia</div></div>
+        <div class="chair-row"><div class="yr">2025</div><div>Brazil</div></div>
+        <div class="chair-row"><div class="yr">2026</div><div>India</div></div>
+      </div>
+      <div class="chair-panel">
+        <h3>The Chair</h3><div class="panel-rule"></div>
+        <ul><li>Hosts the annual Summit</li><li>Sets priorities for the year</li><li>Organizes ministerial meetings</li><li>Coordinates over 200 sectoral events</li></ul>
+      </div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">08</div></div>
+  </section>
+
+  <!-- 9 GOVERNANCE -->
+  <section class="slide" data-index="8">
+    <div class="header">
+      <div class="kicker">Architecture</div>
+      <div class="title">Governance Structure</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="gov">
+      <div class="gov-node">Leaders’ Summit</div>
+      <div class="gov-arrow"></div>
+      <div class="gov-node">Foreign Ministers</div>
+      <div class="gov-arrow"></div>
+      <div class="gov-node">Sectoral Ministers</div>
+      <div class="gov-arrow"></div>
+      <div class="gov-node">Working Groups</div>
+      <div class="gov-bodies">
+        <div class="gov-body">Business Council</div>
+        <div class="gov-body">Academic Forum</div>
+        <div class="gov-body">Youth Forum</div>
+        <div class="gov-body">Parliamentary Forum</div>
+        <div class="gov-body">New Development Bank</div>
+      </div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">09</div></div>
+  </section>
+
+  <!-- 10 BRICS TODAY -->
+  <section class="slide" data-index="9">
+    <div class="header">
+      <div class="kicker">Global Footprint</div>
+      <div class="title">BRICS Today</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="val">49%</div><div class="lbl">of world population</div></div>
+      <div class="kpi"><div class="val">39%</div><div class="lbl">of global GDP (PPP)</div></div>
+      <div class="kpi"><div class="val">32%</div><div class="lbl">of inhabited land area</div></div>
+    </div>
+    <div class="priorities-label">MAIN PRIORITIES</div>
+    <div class="priorities-rule"></div>
+    <div class="priorities">
+      <div class="priority">Sustainable development</div>
+      <div class="priority">Financial cooperation</div>
+      <div class="priority">Innovation</div>
+      <div class="priority">Digital economy</div>
+      <div class="priority">Energy</div>
+      <div class="priority">Food security</div>
+      <div class="priority">Climate</div>
+      <div class="priority">Healthcare</div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">10</div></div>
+  </section>
+
+  <!-- 11 CHALLENGES -->
+  <section class="slide" data-index="10">
+    <div class="header">
+      <div class="kicker">Considerations</div>
+      <div class="title">Challenges</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="challenges">
+      <div class="challenge"><div class="idx">01</div><div class="txt">Diverse political systems</div></div>
+      <div class="challenge"><div class="idx">02</div><div class="txt">Different economic interests</div></div>
+      <div class="challenge"><div class="idx">03</div><div class="txt">Consensus-based decision-making</div></div>
+      <div class="challenge"><div class="idx">04</div><div class="txt">Expanding membership</div></div>
+      <div class="challenge"><div class="idx">05</div><div class="txt">Institutional development</div></div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">11</div></div>
+  </section>
+
+  <!-- 12 CONCLUSION -->
+  <section class="slide" data-index="11">
+    <div class="header">
+      <div class="kicker">Key Takeaway</div>
+      <div class="title">Conclusion</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="conclusion">
+      <div class="concl-left">
+        <div class="quote">BRICS has become one of the most influential platforms of the Global South.</div>
+        <div class="sub">Not an international organization in the legal sense — but a growing force in global governance.</div>
+      </div>
+      <div class="concl-right">
+        <div class="label">INCREASING ROLE IN</div><div class="label-rule"></div>
+        <div class="role-item">Global economic governance</div>
+        <div class="role-item">International finance</div>
+        <div class="role-item">South–South cooperation</div>
+        <div class="role-item">Reform of multilateral institutions</div>
+      </div>
+    </div>
+    <div class="footer"><div>BRICS &nbsp;|&nbsp; Evolution, Structure and Global Role</div><div class="num">12</div></div>
+  </section>
+
+</div>
+
+<div class="hint">
+  <kbd>←</kbd> <kbd>→</kbd> navigate &nbsp;·&nbsp; <kbd>F</kbd> fullscreen &nbsp;·&nbsp; <kbd>P</kbd> print
+</div>
+
+<div class="controls">
+  <button class="btn" id="prev" title="Previous">‹</button>
+  <div class="progress-info"><span id="current">01</span> / 12</div>
+  <button class="btn" id="next" title="Next">›</button>
+  <div class="divider"></div>
+  <button class="btn btn-wide" id="downloadPptx" title="Download as PPTX">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+         stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <span id="dlLabel">PPTX</span>
+  </button>
+</div>
+
+<script>
+/* =====================================================================
+   Navigation
+   ===================================================================== */
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const currentEl = document.getElementById('current');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let idx = 0;
+
+  function fitSlides() {
+    const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720) * 0.96;
+    slides.forEach(s => {
+      s.style.transformOrigin = 'center center';
+      if (s.classList.contains('active')) s.style.transform = `scale(${scale})`;
+    });
+  }
+  function show(i) {
+    idx = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, n) => s.classList.toggle('active', n === idx));
+    currentEl.textContent = String(idx + 1).padStart(2, '0');
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === slides.length - 1;
+    fitSlides();
+  }
+  const next = () => show(idx + 1);
+  const prev = () => show(idx - 1);
+
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    } else if (e.key === 'p' || e.key === 'P') { e.preventDefault(); window.print(); }
+  });
+
+  let touchX = null;
+  document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
+    touchX = null;
+  });
+
+  window.addEventListener('resize', fitSlides);
+  show(0);
+})();
+
+/* =====================================================================
+   PPTX Export (PptxGenJS)
+   ===================================================================== */
+(function () {
+  const C = {
+    navy:  '003A70',
+    gold:  'C9A227',
+    green: '2E7D32',
+    white: 'FFFFFF',
+    light: 'F4F6F9',
+    line:  'DDDFE3',
+    gray:  '666B73',
+    dark:  '1A1A1A',
+    subtle:'C9D4E0'
+  };
+  const FONT = 'Segoe UI';
+  const SW = 13.333, SH = 7.5;
+
+  const btn = document.getElementById('downloadPptx');
+  const label = document.getElementById('dlLabel');
+
+  btn.addEventListener('click', async () => {
+    if (typeof PptxGenJS === 'undefined') {
+      label.textContent = 'Loading…';
+      return;
+    }
+    label.textContent = 'Building…';
+    btn.disabled = true;
+    try {
+      const pptx = buildPptx();
+      await pptx.writeFile({ fileName: 'BRICS_Presentation.pptx' });
+      label.textContent = 'Ready ✓';
+      setTimeout(() => { label.textContent = 'PPTX'; btn.disabled = false; }, 1600);
+    } catch (err) {
+      console.error(err);
+      label.textContent = 'Error';
+      setTimeout(() => { label.textContent = 'PPTX'; btn.disabled = false; }, 2000);
+    }
+  });
+
+  function buildPptx() {
+    const pptx = new PptxGenJS();
+    pptx.defineLayout({ name: 'BRICS', width: SW, height: SH });
+    pptx.layout = 'BRICS';
+    pptx.author = 'BRICS';
+    pptx.title = 'BRICS: Evolution, Structure and Global Role';
+    pptx.subject = 'Emerging economies cooperation platform';
+
+    const R = (s, x, y, w, h, o = {}) =>
+      s.addShape(pptx.ShapeType.rect, {
+        x, y, w, h,
+        fill: o.fill ? { color: o.fill } : { type: 'none' },
+        line: o.line ? { color: o.line, width: o.lineW || 0.75 } : { type: 'none' }
+      });
+    const O = (s, x, y, w, h, o = {}) =>
+      s.addShape(pptx.ShapeType.ellipse, {
+        x, y, w, h,
+        fill: o.fill ? { color: o.fill } : { type: 'none' },
+        line: o.line ? { color: o.line, width: o.lineW || 0.75 } : { type: 'none' }
+      });
+    const T = (s, x, y, w, h, text, o = {}) =>
+      s.addText(text, {
+        x, y, w, h,
+        fontFace: o.font || FONT,
+        fontSize: o.size || 14,
+        bold: !!o.bold,
+        italic: !!o.italic,
+        color: o.color || C.dark,
+        align: o.align || 'left',
+        valign: o.valign || 'top',
+        charSpacing: o.spacing,
+        lineSpacingMultiple: o.lh
+      });
+
+    const addFooter = (s, num) => {
+      R(s, 0.6, 7.05, 12.13, 0.012, { fill: C.line });
+      T(s, 0.6, 7.12, 8, 0.3,
+        'BRICS  |  Evolution, Structure and Global Role',
+        { size: 9, color: C.gray, valign: 'middle' });
+      T(s, 11.0, 7.12, 1.73, 0.3,
+        String(num).padStart(2, '0'),
+        { size: 9, bold: true, color: C.gold, align: 'right', valign: 'middle' });
+    };
+    const addHeader = (s, kicker, title) => {
+      T(s, 0.6, 0.42, 10, 0.3, kicker.toUpperCase(),
+        { size: 10, bold: true, color: C.gold, spacing: 2 });
+      T(s, 0.6, 0.7, 12, 0.75, title, { size: 28, bold: true, color: C.navy });
+      R(s, 0.6, 1.48, 1.2, 0.035, { fill: C.gold });
+    };
+
+    /* ---------- 1. Cover ---------- */
+    {
+      const s = pptx.addSlide();
+      s.background = { color: C.navy };
+      R(s, 0, 0, 0.35, SH, { fill: C.gold });
+      T(s, 0.9, 2.1, 11, 0.4, 'OFFICIAL PRESENTATION',
+        { size: 11, bold: true, color: C.gold, spacing: 3 });
+      T(s, 0.9, 2.4, 12, 1.6, 'BRICS', { size: 84, bold: true, color: C.white });
+      R(s, 0.9, 4.05, 1.6, 0.04, { fill: C.gold });
+      T(s, 0.9, 4.3, 12, 0.7, 'Evolution, Cooperation and Global Governance',
+        { size: 24, color: C.white });
+      T(s, 0.9, 5.15, 11, 0.5,
+        'A major platform for cooperation among emerging economies',
+        { size: 14, color: C.subtle });
+      const bars = [C.green, C.gold, C.white, C.green, C.gold];
+      bars.forEach((c, i) => R(s, 0.9 + i * 0.45, 6.6, 0.35, 0.12, { fill: c }));
+      T(s, 0.9, 6.85, 11, 0.3, '2025', { size: 11, bold: true, color: C.gold });
+    }
+
+    /* ---------- 2. What is BRICS ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Introduction', 'What is BRICS?');
+
+      const bullets = [
+        { t: 'Informal interstate cooperation mechanism', sub: false },
+        { t: 'Platform for political, economic and humanitarian dialogue', sub: false },
+        { t: 'Promotes:', sub: false },
+        { t: 'multipolar world order', sub: true },
+        { t: 'sustainable development', sub: true },
+        { t: 'reform of global governance', sub: true },
+        { t: 'economic cooperation', sub: true }
+      ];
+      let y = 1.95;
+      bullets.forEach(b => {
+        if (!b.sub) {
+          R(s, 0.6, y + 0.14, 0.12, 0.12, { fill: C.gold });
+          T(s, 0.85, y, 5.7, 0.35, b.t, { size: 15, color: C.dark });
+        } else {
+          T(s, 1.1, y, 5.5, 0.32, '–  ' + b.t, { size: 13, color: C.gray });
+        }
+        y += b.sub ? 0.38 : 0.52;
+      });
+
+      // Members panel
+      R(s, 7.1, 1.9, 5.65, 4.5, { fill: C.light });
+      T(s, 7.4, 2.1, 5.05, 0.4, 'CURRENT MEMBERS  ·  2025',
+        { size: 11, bold: true, color: C.navy, spacing: 2 });
+      R(s, 7.4, 2.55, 0.8, 0.03, { fill: C.gold });
+      const members = ['Brazil','Russia','India','China','South Africa',
+                       'Egypt','Ethiopia','Iran','United Arab Emirates','Indonesia'];
+      members.forEach((m, i) => {
+        const col = i % 2, row = Math.floor(i / 2);
+        const x = 7.4 + col * 2.7;
+        const yy = 2.85 + row * 0.62;
+        R(s, x, yy, 2.4, 0.5, { fill: C.white, line: C.line });
+        R(s, x, yy, 0.07, 0.5, { fill: C.gold });
+        T(s, x + 0.2, yy, 2.1, 0.5, m,
+          { size: 12, bold: true, color: C.navy, valign: 'middle' });
+      });
+      addFooter(s, 2);
+    }
+
+    /* ---------- 3. Key Facts ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Overview', 'Key Facts');
+      const facts = [
+        ['Established', '2006  ·  Ministerial format'],
+        ['First Summit', '2009  ·  Yekaterinburg'],
+        ['South Africa joined', '2011'],
+        ['Major expansion', '2024 – 2025'],
+        ['Current members', '10'],
+        ['Decision-making', 'Consensus']
+      ];
+      const x = 1.2, y0 = 2.0, w = 11.0, rh = 0.68;
+      facts.forEach(([k, v], i) => {
+        const yy = y0 + i * rh;
+        if (i % 2 === 0) R(s, x, yy, w, rh, { fill: C.light });
+        R(s, x, yy, 0.08, rh, { fill: C.gold });
+        T(s, x + 0.4, yy, 5, rh, k,
+          { size: 14, bold: true, color: C.navy, valign: 'middle' });
+        T(s, x + 5.6, yy, 5.2, rh, v,
+          { size: 14, color: C.dark, valign: 'middle' });
+        if (i < facts.length - 1) R(s, x, yy + rh, w, 0.008, { fill: C.line });
+      });
+      addFooter(s, 3);
+    }
+
+    /* ---------- 4. Legal Status ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Legal Status', 'Is BRICS an International Organization?');
+
+      R(s, 0.6, 1.9, 4.0, 4.5, { fill: C.navy });
+      T(s, 0.6, 2.25, 4.0, 1.7, 'NO',
+        { size: 96, bold: true, color: C.gold, align: 'center' });
+      T(s, 0.85, 4.1, 3.5, 2.0,
+        'BRICS is not an international organization under international law.',
+        { size: 13, color: C.white, align: 'center', lh: 1.3 });
+
+      const reasons = [
+        'No founding treaty (Charter / Treaty)',
+        'No Charter or Constitution',
+        'No international legal personality',
+        'Decisions are political, not legally binding',
+        'Cooperation based on consensus and summit declarations'
+      ];
+      reasons.forEach((r, i) => {
+        const yy = 2.1 + i * 0.75;
+        O(s, 5.2, yy, 0.5, 0.5, { fill: C.gold });
+        T(s, 5.2, yy, 0.5, 0.5, String(i + 1),
+          { size: 14, bold: true, color: C.white, align: 'center', valign: 'middle' });
+        T(s, 5.95, yy, 7.0, 0.5, r,
+          { size: 14, color: C.dark, valign: 'middle' });
+      });
+
+      R(s, 5.2, 5.9, 7.5, 0.7, { fill: C.light });
+      R(s, 5.2, 5.9, 0.08, 0.7, { fill: C.green });
+      T(s, 5.5, 5.9, 7.0, 0.7,
+        'BRICS is an informal intergovernmental cooperation mechanism.',
+        { size: 14, bold: true, color: C.navy, valign: 'middle' });
+      addFooter(s, 4);
+    }
+
+    /* ---------- 5. Timeline ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Timeline', 'Evolution of BRICS');
+
+      const trackY = 3.6;
+      R(s, 0.9, trackY, 11.2, 0.02, { fill: C.navy });
+
+      const events = [
+        ['1998',    'RIC concept\n(Russia–India–China)'],
+        ['2001',    '"BRIC" term coined\nby Goldman Sachs'],
+        ['2006',    'First BRIC Foreign\nMinisters Meeting'],
+        ['2009',    "First Leaders'\nSummit"],
+        ['2011',    'South Africa joins\n→ BRICS'],
+        ['2024–25', 'Expansion of\nmembership']
+      ];
+      const x0 = 0.9, x1 = 12.1, step = (x1 - x0) / (events.length - 1);
+      events.forEach(([year, desc], i) => {
+        const cx = x0 + i * step;
+        O(s, cx - 0.14, trackY - 0.14, 0.28, 0.28, { fill: C.gold });
+        T(s, cx - 0.9, 2.85, 1.8, 0.4, year,
+          { size: 14, bold: true, color: C.navy, align: 'center' });
+        T(s, cx - 0.95, 4.0, 1.9, 1.2, desc,
+          { size: 10, color: C.dark, align: 'center', lh: 1.15 });
+      });
+      addFooter(s, 5);
+    }
+
+    /* ---------- 6. Development Stages ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Phases', 'Development Stages');
+
+      const stages = [
+        ['I',   '2009 – 2013',   ['Institutional foundation', 'First summits',
+                                   'Governance reform agenda', 'South Africa joins']],
+        ['II',  '2014 – 2018',   ['New Development Bank',
+                                   'Contingent Reserve Arrangement',
+                                   'Expansion of cooperation']],
+        ['III', '2019 – 2023',   ['COVID-19 coordination', 'Digital cooperation',
+                                   'BRICS expansion decision']],
+        ['IV',  '2024 – present',['Enlarged membership', 'BRICS Partner Countries',
+                                   'Deeper financial cooperation']]
+      ];
+      const cw = 2.95, gap = 0.18, x0 = 0.6, y0 = 2.0, ch = 4.5;
+      stages.forEach(([num, period, items], i) => {
+        const x = x0 + i * (cw + gap);
+        R(s, x, y0, cw, ch, { fill: C.light });
+        R(s, x, y0, cw, 0.08, { fill: i % 2 === 0 ? C.gold : C.green });
+        O(s, x + 0.25, y0 + 0.3, 0.6, 0.6, { fill: C.navy });
+        T(s, x + 0.25, y0 + 0.3, 0.6, 0.6, num,
+          { size: 18, bold: true, color: C.white, align: 'center', valign: 'middle' });
+        T(s, x + 0.25, y0 + 1.1, cw - 0.5, 0.4, period,
+          { size: 13, bold: true, color: C.navy });
+        R(s, x + 0.25, y0 + 1.5, 0.6, 0.03, { fill: C.gold });
+        items.forEach((it, k) => {
+          const y = y0 + 1.85 + k * 0.55;
+          R(s, x + 0.25, y + 0.12, 0.08, 0.08, { fill: C.gold });
+          T(s, x + 0.45, y, cw - 0.7, 0.5, it, { size: 11, color: C.dark });
+        });
+      });
+      addFooter(s, 6);
+    }
+
+    /* ---------- 7. Achievements ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Results', 'Major Achievements');
+
+      const cols = [
+        ['FINANCIAL', ['New Development Bank (2014)', 'Contingent Reserve Arrangement']],
+        ['ECONOMIC',  ['Trade in national currencies', 'Infrastructure financing',
+                       'Investment cooperation']],
+        ['POLITICAL', ['Coordination in G20', 'Reform of IMF and World Bank',
+                       'Stronger Global South representation']]
+      ];
+      const cw = 3.9, gap = 0.32, x0 = 0.6, y0 = 2.0, ch = 4.3;
+      cols.forEach(([title, items], i) => {
+        const x = x0 + i * (cw + gap);
+        R(s, x, y0, cw, ch, { fill: C.white, line: C.line });
+        R(s, x, y0, cw, 0.9, { fill: C.navy });
+        T(s, x, y0, cw, 0.9, title,
+          { size: 14, bold: true, color: C.white, align: 'center', valign: 'middle', spacing: 2 });
+        R(s, x + 0.3, y0 + 1.15, 0.6, 0.03, { fill: C.gold });
+        items.forEach((it, k) => {
+          const y = y0 + 1.45 + k * 0.62;
+          O(s, x + 0.3, y + 0.12, 0.13, 0.13, { fill: C.green });
+          T(s, x + 0.65, y, cw - 0.95, 0.5, it, { size: 13.5, color: C.dark, valign: 'middle' });
+        });
+      });
+      addFooter(s, 7);
+    }
+
+    /* ---------- 8. Chairmanship ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Rotating Annually', 'BRICS Chairmanship');
+
+      T(s, 0.6, 1.5, 6.0, 0.35, 'RECENT CHAIRS',
+        { size: 11, bold: true, color: C.gold, spacing: 2 });
+      R(s, 0.6, 1.85, 0.6, 0.03, { fill: C.gold });
+
+      const rows = [['2021','India'],['2022','China'],['2023','South Africa'],
+                    ['2024','Russia'],['2025','Brazil'],['2026','India']];
+      const ty = 2.05, rh = 0.62;
+      rows.forEach(([yr, ctry], i) => {
+        const y = ty + i * rh;
+        if (i % 2 === 0) R(s, 0.6, y, 6.0, rh, { fill: C.light });
+        R(s, 0.6, y, 0.06, rh, { fill: C.gold });
+        T(s, 0.9, y, 2.5, rh, yr,
+          { size: 14, bold: true, color: C.navy, valign: 'middle' });
+        T(s, 3.6, y, 3.0, rh, ctry,
+          { size: 14, color: C.dark, valign: 'middle' });
+      });
+
+      R(s, 7.2, 1.45, 5.53, 5.2, { fill: C.light });
+      T(s, 7.6, 1.7, 4.73, 0.4, 'THE CHAIR',
+        { size: 12, bold: true, color: C.navy, spacing: 2 });
+      R(s, 7.6, 2.1, 0.7, 0.03, { fill: C.gold });
+
+      const chairItems = [
+        'Hosts the annual Summit',
+        'Sets priorities for the year',
+        'Organizes ministerial meetings',
+        'Coordinates over 200 sectoral events'
+      ];
+      chairItems.forEach((it, i) => {
+        const y = 2.5 + i * 0.85;
+        R(s, 7.6, y + 0.14, 0.14, 0.14, { fill: C.gold });
+        T(s, 7.9, y, 4.5, 0.5, it,
+          { size: 14, color: C.dark, valign: 'middle' });
+      });
+      addFooter(s, 8);
+    }
+
+    /* ---------- 9. Governance ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Architecture', 'Governance Structure');
+
+      const flow = ["Leaders' Summit", 'Foreign Ministers', 'Sectoral Ministers', 'Working Groups'];
+      const bw = 5.0, bx = (SW - bw) / 2, by = 1.9, bh = 0.55, gap = 0.42;
+      flow.forEach((label, i) => {
+        const y = by + i * (bh + gap);
+        R(s, bx, y, bw, bh, { fill: C.navy });
+        T(s, bx, y, bw, bh, label,
+          { size: 14, bold: true, color: C.white, align: 'center', valign: 'middle' });
+        if (i < flow.length - 1) {
+          s.addShape(pptx.ShapeType.downArrow, {
+            x: SW / 2 - 0.13, y: y + bh + 0.06, w: 0.26, h: gap - 0.12,
+            fill: { color: C.gold }, line: { type: 'none' }
+          });
+        }
+      });
+
+      const bodies = ['Business Council', 'Academic Forum', 'Youth Forum',
+                      'Parliamentary Forum', 'New Development Bank'];
+      const bw2 = 2.3, gap2 = 0.18;
+      const totalW = bodies.length * bw2 + (bodies.length - 1) * gap2;
+      const xs = (SW - totalW) / 2, by2 = 5.85;
+      bodies.forEach((b, i) => {
+        const x = xs + i * (bw2 + gap2);
+        R(s, x, by2, bw2, 0.85, { fill: C.light, line: C.navy });
+        T(s, x + 0.1, by2, bw2 - 0.2, 0.85, b,
+          { size: 10, bold: true, color: C.navy, align: 'center', valign: 'middle' });
+      });
+      addFooter(s, 9);
+    }
+
+    /* ---------- 10. BRICS Today ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Global Footprint', 'BRICS Today');
+
+      const kpis = [['49%', 'of world population'],
+                    ['39%', 'of global GDP (PPP)'],
+                    ['32%', 'of inhabited land area']];
+      const cw = 3.8, gap = 0.32, x0 = 0.6, y0 = 1.95, ch = 2.0;
+      kpis.forEach(([num, lbl], i) => {
+        const x = x0 + i * (cw + gap);
+        R(s, x, y0, cw, ch, { fill: C.navy });
+        R(s, x, y0, cw, 0.08, { fill: i % 2 === 0 ? C.gold : C.green });
+        T(s, x, y0 + 0.2, cw, 1.1, num,
+          { size: 54, bold: true, color: C.gold, align: 'center' });
+        T(s, x + 0.2, y0 + 1.35, cw - 0.4, 0.6, lbl,
+          { size: 12, color: C.subtle, align: 'center' });
+      });
+
+      T(s, 0.6, 4.25, 12, 0.4, 'MAIN PRIORITIES',
+        { size: 11, bold: true, color: C.gold, spacing: 2 });
+      R(s, 0.6, 4.6, 0.7, 0.03, { fill: C.gold });
+
+      const priorities = ['Sustainable development', 'Financial cooperation',
+                          'Innovation', 'Digital economy',
+                          'Energy', 'Food security', 'Climate', 'Healthcare'];
+      const pw = 2.95, ph = 0.55, gx = 0.15, gy = 0.15;
+      priorities.forEach((p, i) => {
+        const col = i % 4, row = Math.floor(i / 4);
+        const x = 0.6 + col * (pw + gx);
+        const y = 5.0 + row * (ph + gy);
+        R(s, x, y, pw, ph, { fill: C.light, line: C.line });
+        R(s, x, y, 0.07, ph, { fill: C.green });
+        T(s, x + 0.2, y, pw - 0.3, ph, p,
+          { size: 12, bold: true, color: C.navy, valign: 'middle' });
+      });
+      addFooter(s, 10);
+    }
+
+    /* ---------- 11. Challenges ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Considerations', 'Challenges');
+
+      const items = [
+        ['01', 'Diverse political systems'],
+        ['02', 'Different economic interests'],
+        ['03', 'Consensus-based decision-making'],
+        ['04', 'Expanding membership'],
+        ['05', 'Institutional development']
+      ];
+      const y0 = 2.0, rh = 0.85;
+      items.forEach(([num, txt], i) => {
+        const y = y0 + i * rh;
+        R(s, 0.6, y, 12.13, rh - 0.12, { fill: C.light });
+        R(s, 0.6, y, 0.08, rh - 0.12, { fill: C.gold });
+        T(s, 1.0, y, 1.2, rh - 0.12, num,
+          { size: 20, bold: true, color: C.gold, valign: 'middle' });
+        T(s, 2.4, y, 10, rh - 0.12, txt,
+          { size: 15, bold: true, color: C.navy, valign: 'middle' });
+      });
+      addFooter(s, 11);
+    }
+
+    /* ---------- 12. Conclusion ---------- */
+    {
+      const s = pptx.addSlide();
+      addHeader(s, 'Key Takeaway', 'Conclusion');
+
+      R(s, 0.6, 1.9, 6.0, 4.6, { fill: C.navy });
+      R(s, 0.6, 1.9, 6.0, 0.1, { fill: C.gold });
+      T(s, 0.95, 2.35, 5.3, 2.9,
+        'BRICS has become one of the most influential platforms of the Global South.',
+        { size: 20, bold: true, color: C.white, lh: 1.2 });
+      T(s, 0.95, 5.35, 5.3, 1.0,
+        'Not an international organization in the legal sense — but a growing force in global governance.',
+        { size: 12, color: C.subtle, lh: 1.3 });
+
+      T(s, 7.0, 1.95, 5.73, 0.4, 'INCREASING ROLE IN',
+        { size: 11, bold: true, color: C.gold, spacing: 2 });
+      R(s, 7.0, 2.3, 0.7, 0.03, { fill: C.gold });
+
+      const roles = ['Global economic governance', 'International finance',
+                     'South–South cooperation', 'Reform of multilateral institutions'];
+      roles.forEach((r, i) => {
+        const y = 2.7 + i * 0.85;
+        R(s, 7.0, y, 5.73, 0.7, { fill: C.light });
+        R(s, 7.0, y, 0.06, 0.7, { fill: C.green });
+        T(s, 7.3, y, 5.4, 0.7, r,
+          { size: 14, bold: true, color: C.navy, valign: 'middle' });
+      });
+      addFooter(s, 12);
+    }
+
+    return pptx;
+  }
+})();
+</script>
+
+</body>
+</html>
